@@ -94,7 +94,6 @@ def cleanupElektrizitaetserzeugung(s):
     return "\n".join(
         ["Jahr,Erzeugung"] +
         [f"{year}," + v for v, year in zip(vals, range(startYear, startYear+len(vals)))]
-        + ["2022,60.8"]
     )
 
 def cleanupInvestitionen(s):
