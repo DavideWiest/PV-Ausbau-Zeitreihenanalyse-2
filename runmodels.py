@@ -59,7 +59,9 @@ models = [
 ] + [
     RegModel("Lineare Regression", target, list(past_covariates_partial_length.values()), list(future_covariates_partial_length.values()), TEST_TRAIN_RATIO_FULL_LENGTH),
     XGBoostModel("XGBoost", target, list(past_covariates_partial_length.values()), list(future_covariates_partial_length.values()), TEST_TRAIN_RATIO_FULL_LENGTH),
-    EnsembleBeatsModel(20, "N-Beats", target, list(past_covariates_partial_length.values()), list(future_covariates_partial_length.values()), TEST_TRAIN_RATIO_FULL_LENGTH),
+    # for testing use beatsModel, for acutal prediction the ensemble one
+    # BeatsModel("N-Beats", target, list(past_covariates_partial_length.values()), list(future_covariates_partial_length.values()), TEST_TRAIN_RATIO_FULL_LENGTH)
+    EnsembleBeatsModel(10, "N-Beats", target, list(past_covariates_partial_length.values()), list(future_covariates_partial_length.values()), TEST_TRAIN_RATIO_FULL_LENGTH),
     # EnsembleBeatsModel may not be at index 0 - does not have all ModelTemplate properties
 ]
 
@@ -85,7 +87,7 @@ plt.rcParams["font.size"] = "8"
 
 if __name__ == "__main__":
     [m.fit_test(4, (0,4)) for m in models]
-    [m.fit(10, 5, (0,5), output_chunk_len=10) for m in models]
+    [m.fit(11, 4, (0,4), output_chunk_len=11) for m in models]
     testPredictions = [m.predict_test() for m in models]
     predictions = [m.predict() for m in models]
     testDfs = [p.pd_series() for p in testPredictions]
@@ -138,7 +140,7 @@ if __name__ == "__main__":
         pred = pd.concat([pd.Series([last_full_train_val], index=[last_full_train_index]), pred])
 
         plt.plot(model.target_full.pd_series(), label="Tatsächlich")
-        plt.plot(testpred, label=model.name, color=c)
+        # plt.plot(testpred, label=model.name, color=c)
         plt.plot(pred, color=c)
         plt.xlabel("Jahr")
         plt.ylabel("Bruttoelektrizitätsgewinnung (TWh)")
