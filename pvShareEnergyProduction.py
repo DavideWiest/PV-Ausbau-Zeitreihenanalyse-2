@@ -32,6 +32,9 @@ dfConsumption = dfConsumption.loc[:, ["Zeit", "Netzlast"]]
 print(dfProduction)
 print(dfConsumption)
 
+print(dfProduction.shape)
+print(dfConsumption.shape)
+
 merged_df = pd.merge(dfProduction, dfConsumption, on="Zeit")
 rangeList = []
 

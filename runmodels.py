@@ -55,13 +55,13 @@ def selected_past_covars():
     return covars
 
 models = [
-    MeanModel("Mittelwert-Modell", target, list(past_covariates_partial_length.values()), list(future_covariates_full.values()), TEST_TRAIN_RATIO_FULL_LENGTH),
+    # MeanModel("Mittelwert-Modell", target, list(past_covariates_partial_length.values()), list(future_covariates_full.values()), TEST_TRAIN_RATIO_FULL_LENGTH),
 ] + [
     RegModel("Lineare Regression", target, list(past_covariates_partial_length.values()), list(future_covariates_partial_length.values()), TEST_TRAIN_RATIO_FULL_LENGTH),
     XGBoostModel("XGBoost", target, list(past_covariates_partial_length.values()), list(future_covariates_partial_length.values()), TEST_TRAIN_RATIO_FULL_LENGTH),
     # for testing use beatsModel, for acutal prediction the ensemble one
     # BeatsModel("N-Beats", target, list(past_covariates_partial_length.values()), list(future_covariates_partial_length.values()), TEST_TRAIN_RATIO_FULL_LENGTH)
-    EnsembleBeatsModel(10, "N-Beats", target, list(past_covariates_partial_length.values()), list(future_covariates_partial_length.values()), TEST_TRAIN_RATIO_FULL_LENGTH),
+    EnsembleBeatsModel(20, "N-Beats", target, list(past_covariates_partial_length.values()), list(future_covariates_partial_length.values()), TEST_TRAIN_RATIO_FULL_LENGTH),
     # EnsembleBeatsModel may not be at index 0 - does not have all ModelTemplate properties
 ]
 
@@ -72,10 +72,10 @@ def measureModel(m, prediction):
 
 def getColors():
     return [
-        (0.75, 0.2, 0.2),
         (0.45, 0.15, 0.45),
         (0.2, 0.7, 0.2),
         (0.2, 0.2, 0.75),
+        (0.75, 0.2, 0.2),
         (0.25, 0.5, 0.5),
         (0.5, 0.375, 0.375),
         (0.5, 0.375, 0.25),
@@ -141,7 +141,7 @@ if __name__ == "__main__":
 
         plt.plot(model.target_full.pd_series(), label="Tatsächlich")
         # plt.plot(testpred, label=model.name, color=c)
-        plt.plot(pred, color=c)
+        plt.plot(pred, color=c, label=model.name)
         plt.xlabel("Jahr")
         plt.ylabel("Bruttoelektrizitätsgewinnung (TWh)")
         plt.legend()
