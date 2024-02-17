@@ -87,7 +87,7 @@ plt.rcParams["font.size"] = "8"
 
 if __name__ == "__main__":
     [m.fit_test(4, (0,4)) for m in models]
-    [m.fit(11, 4, (0,4), output_chunk_len=11) for m in models]
+    [m.fit(10, 4, (0,4), output_chunk_len=10) for m in models]
     testPredictions = [m.predict_test() for m in models]
     predictions = [m.predict() for m in models]
     testDfs = [p.pd_series() for p in testPredictions]
