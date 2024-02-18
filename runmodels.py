@@ -59,7 +59,7 @@ models = [
 ] + [
     RegModel("Lineare Regression", target, list(past_covariates_partial_length.values()), list(future_covariates_partial_length.values()), TEST_TRAIN_RATIO_FULL_LENGTH),
     XGBoostModel("XGBoost", target, list(past_covariates_partial_length.values()), list(future_covariates_partial_length.values()), TEST_TRAIN_RATIO_FULL_LENGTH),
-    # for testing use beatsModel, for acutal prediction the ensemble one
+    # for testing use beatsModel, for actual prediction the ensemble one
     # BeatsModel("N-Beats", target, list(past_covariates_partial_length.values()), list(future_covariates_partial_length.values()), TEST_TRAIN_RATIO_FULL_LENGTH)
     EnsembleBeatsModel(20, "N-Beats", target, list(past_covariates_partial_length.values()), list(future_covariates_partial_length.values()), TEST_TRAIN_RATIO_FULL_LENGTH),
     # EnsembleBeatsModel may not be at index 0 - does not have all ModelTemplate properties
